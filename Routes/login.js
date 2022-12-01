@@ -12,8 +12,6 @@ router.post("/login", async (req, res) => {
     const salt = User.salt;
     const newHash = SHA256(salt + password).toString(encBase64);
 
-    console.log(User.hash);
-
     if (email === User.email) {
       const validLogin = {
         id: User._id,

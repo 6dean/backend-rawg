@@ -7,7 +7,6 @@ const BASE64 = require("crypto-js/enc-base64");
 const Member = require("../Models/Member");
 
 router.post("/joinus", async (req, res) => {
-  console.log(req.body);
   try {
     const { email, username, password } = req.body;
     const emailExist = await Member.findOne({ email: email });
