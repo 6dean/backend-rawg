@@ -21,7 +21,7 @@ router.post("/joinus", async (req, res) => {
     } else {
       const salt = uid2(16);
       const hash = SHA256(salt + password).toString(BASE64);
-      const token = uid2(16);
+      const token = uid2(64);
 
       const newMember = new Member({
         email: email,
