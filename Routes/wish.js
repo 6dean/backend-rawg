@@ -10,17 +10,21 @@ router.put("/wish", async (req, res) => {
       token: token,
     });
     const wishlistArray = User.wishlist;
-    console.log();
-
-    wishlistArray.find((obj) => {
-      if (obj === wish) {
-        null;
-      } else {
-        console.log("je push");
-        // User.wishlist.push(wish);
-        // User.save();
-      }
-    });
+    if (wishlistArray.length === 0) {
+      User.wishlist.push(wish);
+      User.save();
+    } else {
+      const pushing = () => {
+        User.wishlist.push(wish);
+        User.save();
+      };
+      const isFound = wishlistArray.some((element) => {
+        if (element.id === wish.id) {
+          return true;
+        }
+      });
+      isFound ? null : pushing();
+    }
   } catch (error) {
     console.log(error + " " + "MUHAHAHA");
     res.status(406).json({ message: error });
