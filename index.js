@@ -33,7 +33,7 @@ app.use(allfavorites);
 app.use(deletefavorite);
 app.use(wish);
 app.use(wishlist);
-// app.use(deletewish)
+app.use(deletewish);
 // app.use(commentary);
 // app.use(allcomments);
 // app.use(deletecomment);
