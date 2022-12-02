@@ -4,17 +4,16 @@ const router = express.Router();
 const Member = require("../Models/Member");
 
 router.put("/favorite", async (req, res) => {
-  const { game, token } = req.body;
+  const { favorite, token } = req.body;
   try {
-    const filter = { token: token };
-    const update = { community: { favorites: game } };
-
-    const User = await Member.findOneAndUpdate(filter, update, {
-      new: true,
+    const User = await Member.findOne({
+      token: token,
     });
-    console.log(User);
+
+    User.favorites.push(favorite);
+    User.save();
   } catch (error) {
-    console.log(error + "hihi");
+    console.log(error + " " + "MUHAHAHA");
     res.status(406).json({ message: error });
   }
 });
