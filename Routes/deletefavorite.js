@@ -17,6 +17,7 @@ router.put("/deletefavorite", async (req, res) => {
     );
 
     User.save();
+    res.status(200).json(favoriteArray);
   } catch (error) {
     console.log(error + " " + "MUHAHAHA");
     res.status(406).json({ message: error });
