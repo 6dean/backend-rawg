@@ -9,9 +9,14 @@ router.put("/profile", async (req, res) => {
     const User = await Member.findOne({
       token: token,
     });
-    console.log(User);
-
-    res.status(200).json(User);
+    const UserInfos = {
+      Username: User.username,
+      Email: User.email,
+      Favorites: User.favorites,
+      Wishlist: User.wishlist,
+      Reviews: User.comments,
+    };
+    res.status(200).json(UserInfos);
   } catch (error) {
     console.log(error + " " + "MUHAHAHA");
     res.status(406).json({ message: error });
