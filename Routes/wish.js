@@ -26,7 +26,6 @@ router.put("/wish", async (req, res) => {
       isFound ? null : pushing();
     }
   } catch (error) {
-    console.log(error + " " + "MUHAHAHA");
     res.status(406).json({ message: error });
   }
 });

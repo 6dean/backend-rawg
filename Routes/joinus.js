@@ -10,13 +10,19 @@ router.post("/joinus", async (req, res) => {
   try {
     const { email, username, password } = req.body;
     const emailExist = await Member.findOne({ email: email });
-    if (!username) {
-      return res.status(400).json({ message: "username needed" });
-    }
-    if (!email) {
-      return res.status(400).json({ message: "email needed" });
-    } else if (emailExist !== null) {
-      return res.status(400).json({ message: "email already existing" });
+    const UsernameExist = await Member.findOne({ username: username });
+    if (!username && email) {
+      return res
+        .status(400)
+        .json({ message: "Username and email are needed !" });
+    } else if (emailExist) {
+      return res
+        .status(406)
+        .send({ message: "This email has already an account !" });
+    } else if (UsernameExist) {
+      return res
+        .status(406)
+        .send({ message: "This Username is already used !" });
     } else {
       const salt = uid2(16);
       const hash = SHA256(salt + password).toString(BASE64);

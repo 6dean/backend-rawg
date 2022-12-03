@@ -12,7 +12,6 @@ router.post("/wishlist", async (req, res) => {
     const wishlistArray = User.wishlist;
     res.status(200).json(wishlistArray);
   } catch (error) {
-    console.log(error + " " + "MUHAHAHA");
     res.status(406).json({ message: error });
   }
 });

@@ -9,18 +9,27 @@ router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
     const User = await Member.findOne({ email: email });
-    const salt = User.salt;
-    const newHash = SHA256(salt + password).toString(encBase64);
 
-    if (email === User.email) {
-      const validLogin = {
-        id: User._id,
-        token: User.token,
-        username: User.username,
-      };
-      return res.status(200).json(validLogin);
-    } else if (newHash !== User.hash || email !== User.email) {
-      res.status(400).json({ message: "email or password invalid" });
+    if (User) {
+      const salt = User.salt;
+      const newHash = SHA256(salt + password).toString(encBase64);
+
+      if (email === User.email) {
+        const validLogin = {
+          id: User._id,
+          token: User.token,
+          username: User.username,
+        };
+        return res.status(200).json(validLogin);
+      } else if (newHash !== User.hash || email !== User.email) {
+        res
+          .status(406)
+          .json({ message: "Email or Password invalid. Please retry !" });
+      }
+    } else {
+      res
+        .status(406)
+        .json({ message: "Email or Password invalid. Please retry !" });
     }
   } catch (error) {
     res.status(404).json({ message: error.message });

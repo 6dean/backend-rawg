@@ -19,7 +19,6 @@ router.put("/deletewish", async (req, res) => {
     User.save();
     res.status(200).json(wishlistArray);
   } catch (error) {
-    console.log(error + " " + "MUHAHAHA");
     res.status(406).json({ message: error });
   }
 });
