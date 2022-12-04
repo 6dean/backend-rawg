@@ -3,12 +3,10 @@ const express = require("express");
 const router = express.Router();
 const axios = require("axios");
 
-router.get("/home", async (req, res) => {
-  const number = req.query.page_size || "";
-  const search = req.query.search || "";
+router.get("/stores", async (req, res) => {
   try {
     const response = await axios.get(
-      `https://api.rawg.io/api/games?key=${process.env.RAWG_KEY}&page_size=${number}&search=${search}`,
+      `https://api.rawg.io/api/stores?key=${process.env.RAWG_KEY}`,
       {
         headers: { "accept-encoding": "*" },
       }
