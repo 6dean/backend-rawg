@@ -20,6 +20,12 @@ const deletewish = require("./Routes/deletewish");
 const commentary = require("./Routes/commentary");
 const allcomments = require("./Routes/allcomments");
 const deletecomment = require("./Routes/deletecomment");
+const last30 = require("./Routes/last30");
+const thisweek = require("./Routes/thisweek");
+const nextweek = require("./Routes/nextweek");
+const bestoftheyear = require("./Routes/bestoftheyear");
+const popular = require("./Routes/popularin2021");
+const alltimetop = require("./Routes/alltimetop");
 
 app.use(express.json());
 
@@ -37,6 +43,12 @@ app.use(deletewish);
 // app.use(commentary);
 // app.use(allcomments);
 // app.use(deletecomment);
+app.use(last30);
+app.use(thisweek);
+app.use(nextweek);
+app.use(bestoftheyear);
+app.use(popular);
+app.use(alltimetop);
 
 app.all("*", (req, res) => {
   res.status(404).json({ message: "Ooops , are you lost ?" });

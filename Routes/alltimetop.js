@@ -3,13 +3,12 @@ const express = require("express");
 const router = express.Router();
 const axios = require("axios");
 
-router.get("/home", async (req, res) => {
+router.get("/alltimetop", async (req, res) => {
   const number = req.query.page_size || "";
   const search = req.query.search || "";
-  const category = req.query.platform || "games";
   try {
     const response = await axios.get(
-      `https://api.rawg.io/api/${category}?key=${process.env.RAWG_KEY}&page_size=${number}&search=${search}`,
+      `https://api.rawg.io/api/games?metacritic=90,100&key=${process.env.RAWG_KEY}&page_size=${number}&search=${search}`,
       {
         headers: { "accept-encoding": "*" },
       }
