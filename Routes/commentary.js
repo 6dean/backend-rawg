@@ -2,12 +2,16 @@ const express = require("express");
 const router = express.Router();
 
 const Comment = require("../Models/Comment");
+const Member = require("../Models/Member");
 
 router.post("/commentary", async (req, res) => {
-  const { game_id, username, token, date, review } = req.body;
+  const { game_id, game_name, game_img, username, token, date, review } =
+    req.body;
   try {
     const newComment = new Comment({
       game_id: game_id,
+      game_name: game_name,
+      game_img: game_img,
       username: username,
       token: token,
       date: date,
@@ -15,6 +19,20 @@ router.post("/commentary", async (req, res) => {
     });
 
     await newComment.save();
+
+    const User = await Member.findOne({
+      token: token,
+    });
+    const reviewsArray = User.comments;
+
+    reviewsArray.push({
+      game_id: game_id,
+      game_name: game_name,
+      game_img: game_img,
+      date: date,
+      text: review,
+    });
+    User.save();
 
     const validComment = {
       id: newComment._id,
