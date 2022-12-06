@@ -12,62 +12,44 @@ const joinUs = require("./Routes/joinus");
 const login = require("./Routes/login");
 const gamedetails = require("./Routes/gamedetails");
 const yourprofile = require("./Routes/yourprofile");
-const favorite = require("./Routes/favorite");
 const allfavorites = require("./Routes/allfavorites");
-const deletefavorite = require("./Routes/deletefavorite");
-const wish = require("./Routes/wish");
 const wishlist = require("./Routes/wishlist");
-const deletewish = require("./Routes/deletewish");
-const commentary = require("./Routes/commentary");
 const allcomments = require("./Routes/allcomments");
-const deletecomment = require("./Routes/deletecomment");
-const allreviews = require("./Routes/allreviews");
-const last30 = require("./Routes/last30");
-const thisweek = require("./Routes/thisweek");
-const nextweek = require("./Routes/nextweek");
-const bestoftheyear = require("./Routes/bestoftheyear");
-const popular = require("./Routes/popularin2021");
-const alltimetop = require("./Routes/alltimetop");
-const platforms = require("./Routes/platforms");
-const stores = require("./Routes/stores");
-const genres = require("./Routes/genres");
-const developers = require("./Routes/developers");
-const listing = require("./Routes/listingplatform");
+const listpages = require("./Routes/listpages");
 
 app.use(express.json());
-
 app.use(cors());
+
+// HOME PAGE
 app.use(homePage);
+
+// SIGN IN & LOGIN
 app.use(joinUs);
 app.use(login);
-app.use(gamedetails);
-app.use(listing);
-app.use(yourprofile);
-app.use(favorite);
-app.use(allfavorites);
-app.use(deletefavorite);
-app.use(wish);
-app.use(wishlist);
-app.use(deletewish);
-app.use(commentary);
-app.use(allcomments);
-app.use(deletecomment);
-app.use(allreviews);
-app.use(last30);
-app.use(thisweek);
-app.use(nextweek);
-app.use(bestoftheyear);
-app.use(popular);
-app.use(alltimetop);
-app.use(platforms);
-app.use(stores);
-app.use(genres);
-app.use(developers);
 
+// ALL PAGES FROM SIDEBAR
+app.use(listpages);
+
+// GAME-PAGE DETAILS
+app.use(gamedetails);
+
+// USER PROFILE
+app.use(yourprofile);
+
+// ADD FAV - READ ALL FAV USER-PAGE - DELETE FAVORITES
+app.use(allfavorites);
+
+// ADD WISH - READ WISHLIST USER-PAGE - DELETE WISH
+app.use(wishlist);
+
+// POST - READ ALL COMMENTS GAME-PAGE - READ ALL USER-PAGE - DELETE COMMENTS
+app.use(allcomments);
+
+// ERROR PAGE
 app.all("*", (req, res) => {
   res.status(404).json({ message: "Ooops , are you lost ?" });
 });
 
 app.listen(3000, () => {
-  console.log("Server is now online /!\\");
+  console.log("Server is now online /!\\ 🎮");
 });
