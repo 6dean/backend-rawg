@@ -6,9 +6,10 @@ const axios = require("axios");
 router.get("/home", async (req, res) => {
   const number = req.query.page_size || "";
   const search = req.query.search || "";
+  const page = req.query.page || 1;
   try {
     const response = await axios.get(
-      `https://api.rawg.io/api/games?key=${process.env.RAWG_KEY}&page_size=${number}&search=${search}`,
+      `https://api.rawg.io/api/games?key=${process.env.RAWG_KEY}&page_size=${number}&search=${search}&page=${page}`,
       {
         headers: { "accept-encoding": "*" },
       }
