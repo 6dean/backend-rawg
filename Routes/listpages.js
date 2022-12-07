@@ -10,9 +10,11 @@ const axios = require("axios");
 router.get("/last30", async (req, res) => {
   const number = req.query.page_size || "";
   const search = req.query.search || "";
+  const page = req.query.page || 1;
+
   try {
     const response = await axios.get(
-      `https://api.rawg.io/api/games?key=${process.env.RAWG_KEY}&dates=2022-09-08,2022-12-08&page_size=${number}&search=${search}`,
+      `https://api.rawg.io/api/games?key=${process.env.RAWG_KEY}&dates=2022-09-08,2022-12-08&page_size=${number}&search=${search}&page=${page}`,
       {
         headers: { "accept-encoding": "*" },
       }
@@ -28,9 +30,11 @@ router.get("/last30", async (req, res) => {
 router.get("/thisweek", async (req, res) => {
   const number = req.query.page_size || "";
   const search = req.query.search || "";
+  const page = req.query.page || 1;
+
   try {
     const response = await axios.get(
-      `https://api.rawg.io/api/games?key=${process.env.RAWG_KEY}&dates=2022-12-05,2022-12-20&page_size=${number}&search=${search}`,
+      `https://api.rawg.io/api/games?key=${process.env.RAWG_KEY}&dates=2022-12-05,2022-12-20&page_size=${number}&search=${search}&page=${page}`,
       {
         headers: { "accept-encoding": "*" },
       }
@@ -46,9 +50,11 @@ router.get("/thisweek", async (req, res) => {
 router.get("/nextweek", async (req, res) => {
   const number = req.query.page_size || "";
   const search = req.query.search || "";
+  const page = req.query.page || 1;
+
   try {
     const response = await axios.get(
-      `https://api.rawg.io/api/games?key=${process.env.RAWG_KEY}&dates=2022-12-15,2023-01-10&page_size=${number}&search=${search}`,
+      `https://api.rawg.io/api/games?key=${process.env.RAWG_KEY}&dates=2022-12-15,2023-01-05&page_size=${number}&search=${search}&page=${page}`,
       {
         headers: { "accept-encoding": "*" },
       }
@@ -64,9 +70,11 @@ router.get("/nextweek", async (req, res) => {
 router.get("/bestoftheyear", async (req, res) => {
   const number = req.query.page_size || "";
   const search = req.query.search || "";
+  const page = req.query.page || 1;
+
   try {
     const response = await axios.get(
-      `https://api.rawg.io/api/games?key=${process.env.RAWG_KEY}&dates=2022-01-01,2022-12-31&metacritic=80,100&page_size=${number}&search=${search}`,
+      `https://api.rawg.io/api/games?key=${process.env.RAWG_KEY}&dates=2022-01-01,2022-12-31&metacritic=80,100&page_size=${number}&search=${search}&page=${page}`,
       {
         headers: { "accept-encoding": "*" },
       }
@@ -82,9 +90,11 @@ router.get("/bestoftheyear", async (req, res) => {
 router.get("/popular", async (req, res) => {
   const number = req.query.page_size || "";
   const search = req.query.search || "";
+  const page = req.query.page || 1;
+
   try {
     const response = await axios.get(
-      `https://api.rawg.io/api/games?key=${process.env.RAWG_KEY}&dates=2021-01-01,2021-12-31&metacritic=80,100&page_size=${number}&search=${search}`,
+      `https://api.rawg.io/api/games?key=${process.env.RAWG_KEY}&dates=2021-01-01,2021-12-31&metacritic=80,100&page_size=${number}&search=${search}&page=${page}`,
       {
         headers: { "accept-encoding": "*" },
       }
@@ -100,9 +110,11 @@ router.get("/popular", async (req, res) => {
 router.get("/alltimetop", async (req, res) => {
   const number = req.query.page_size || "";
   const search = req.query.search || "";
+  const page = req.query.page || 1;
+
   try {
     const response = await axios.get(
-      `https://api.rawg.io/api/games?metacritic=90,100&key=${process.env.RAWG_KEY}&page_size=${number}&search=${search}`,
+      `https://api.rawg.io/api/games?metacritic=90,100&key=${process.env.RAWG_KEY}&page_size=${number}&search=${search}&page=${page}`,
       {
         headers: { "accept-encoding": "*" },
       }
@@ -132,12 +144,14 @@ router.get("/platforms", async (req, res) => {
 // PLATFORMS NAME => onClick => GAMES FROM EACH PLATFORM
 
 router.get("/listingplatform", async (req, res) => {
-  const number = req.query.page_size || "";
+  const number = req.query.page_size || 40;
   const search = req.query.search || "";
   const platform = req.query.platforms || "";
+  const page = req.query.page || "";
+
   try {
     const response = await axios.get(
-      `https://api.rawg.io/api/games?key=${process.env.RAWG_KEY}&page_size=${number}&search=${search}&platforms=${platform}`,
+      `https://api.rawg.io/api/games?key=${process.env.RAWG_KEY}&page_size=${number}&search=${search}&platforms=${platform}&page=${page}`,
 
       {
         headers: { "accept-encoding": "*" },
