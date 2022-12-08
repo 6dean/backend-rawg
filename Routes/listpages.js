@@ -3,9 +3,53 @@ const express = require("express");
 const router = express.Router();
 const axios = require("axios");
 
+/// ------ HOME
+
+router.get("/home", async (req, res) => {
+  const number = req.query.page_size || "";
+  const search = req.query.search || "";
+  const page = req.query.page || 1;
+  try {
+    const response = await axios.get(
+      `https://api.rawg.io/api/games?key=${process.env.RAWG_KEY}&page_size=${number}&search=${search}&page=${page}`,
+      {
+        headers: { "accept-encoding": "*" },
+      }
+    );
+    res.json(response.data);
+  } catch (error) {
+    res.status(400).json({ error });
+  }
+});
+
+/// ------ GAME DETAILS
+
+router.get("/gamedetails", async (req, res) => {
+  const id = req.query.id || "";
+  try {
+    const response = await axios.get(
+      `https://api.rawg.io/api/games/${id}?key=${process.env.RAWG_KEY}`,
+
+      {
+        headers: { "accept-encoding": "*" },
+      }
+    );
+    res.json(response.data);
+  } catch (error) {
+    res.status(400).json({ error });
+  }
+});
+
 // CONTAIN ALL PAGES FROM THE SIDEBAR (IN THE SAME ORDER)
 
-// LAST 30 DAYS
+/// ------------------------------------------------------
+/// ------ REVIEWS ===> allcomments.js
+/// ------ YOUR PAGE => member.js
+/// ------ WISHLIST ==> wishlist.js
+/// ------ FAVORITES => allfavorites.js
+/// ------------------------------------------------------
+
+/// ------ LAST 30 DAYS
 
 router.get("/last30", async (req, res) => {
   const number = req.query.page_size || "";
@@ -25,7 +69,7 @@ router.get("/last30", async (req, res) => {
   }
 });
 
-// THIS WEEK
+/// ------ THIS WEEK
 
 router.get("/thisweek", async (req, res) => {
   const number = req.query.page_size || "";
@@ -45,7 +89,7 @@ router.get("/thisweek", async (req, res) => {
   }
 });
 
-// NEXT WEEK
+/// ------ NEXT WEEK
 
 router.get("/nextweek", async (req, res) => {
   const number = req.query.page_size || "";
@@ -65,7 +109,7 @@ router.get("/nextweek", async (req, res) => {
   }
 });
 
-// BEST OF THE YEAR
+/// ------ BEST OF THE YEAR
 
 router.get("/bestoftheyear", async (req, res) => {
   const number = req.query.page_size || "";
@@ -85,7 +129,7 @@ router.get("/bestoftheyear", async (req, res) => {
   }
 });
 
-// POPULAR IN 2021
+/// ------ POPULAR IN 2021
 
 router.get("/popular", async (req, res) => {
   const number = req.query.page_size || "";
@@ -105,7 +149,7 @@ router.get("/popular", async (req, res) => {
   }
 });
 
-// ALL TIME TOP 250
+/// ------ ALL TIME TOP 250
 
 router.get("/alltimetop", async (req, res) => {
   const number = req.query.page_size || "";
@@ -125,7 +169,7 @@ router.get("/alltimetop", async (req, res) => {
   }
 });
 
-// PLATFORMS
+/// ------ PLATFORMS
 
 router.get("/platforms", async (req, res) => {
   try {
@@ -141,7 +185,7 @@ router.get("/platforms", async (req, res) => {
   }
 });
 
-// PLATFORMS NAME => onClick => GAMES FROM EACH PLATFORM
+/// ------ PLATFORMS NAME => onClick => GAMES FROM EACH PLATFORM
 
 router.get("/listingplatform", async (req, res) => {
   const number = req.query.page_size || 40;
@@ -163,7 +207,7 @@ router.get("/listingplatform", async (req, res) => {
   }
 });
 
-// STORES
+/// ------ STORES
 
 router.get("/stores", async (req, res) => {
   try {
@@ -179,7 +223,7 @@ router.get("/stores", async (req, res) => {
   }
 });
 
-// GENRES
+/// ------ GENRES
 
 router.get("/genres", async (req, res) => {
   try {
@@ -195,7 +239,7 @@ router.get("/genres", async (req, res) => {
   }
 });
 
-// DEVELOPERS
+/// ------ DEVELOPERS
 
 router.get("/developers", async (req, res) => {
   try {

@@ -7,34 +7,20 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 mongoose.connect("mongodb://localhost:27017/RAWG");
 
-const homePage = require("./Routes/homepage");
-const joinUs = require("./Routes/joinus");
-const login = require("./Routes/login");
-const gamedetails = require("./Routes/gamedetails");
-const yourprofile = require("./Routes/yourprofile");
+const listpages = require("./Routes/listpages");
+const member = require("./Routes/member");
 const allfavorites = require("./Routes/allfavorites");
 const wishlist = require("./Routes/wishlist");
 const allcomments = require("./Routes/allcomments");
-const listpages = require("./Routes/listpages");
 
 app.use(express.json());
 app.use(cors());
 
-// HOME PAGE
-app.use(homePage);
-
-// SIGN IN & LOGIN
-app.use(joinUs);
-app.use(login);
-
-// ALL PAGES FROM SIDEBAR
+// HOME PAGE ; GAME DETAILS & OTHERS PAGES FROM SIDEBAR
 app.use(listpages);
 
-// GAME-PAGE DETAILS
-app.use(gamedetails);
-
-// USER PROFILE
-app.use(yourprofile);
+// SIGN IN & LOGIN &USER PROFILE
+app.use(member);
 
 // ADD FAV - READ ALL FAV USER-PAGE - DELETE FAVORITES
 app.use(allfavorites);
