@@ -188,14 +188,13 @@ router.get("/platforms", async (req, res) => {
 /// ------ PLATFORMS NAME => onClick => GAMES FROM EACH PLATFORM
 
 router.get("/listingplatform", async (req, res) => {
-  const number = req.query.page_size || 40;
   const search = req.query.search || "";
   const platform = req.query.platforms || "";
   const page = req.query.page || "";
 
   try {
     const response = await axios.get(
-      `https://api.rawg.io/api/games?key=${process.env.RAWG_KEY}&page_size=${number}&search=${search}&platforms=${platform}&page=${page}`,
+      `https://api.rawg.io/api/games?key=${process.env.RAWG_KEY}&search=${search}&platforms=${platform}&page=${page}`,
 
       {
         headers: { "accept-encoding": "*" },

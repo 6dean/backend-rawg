@@ -1,11 +1,11 @@
-require("dotenv").config;
-
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const dotenv = require("dotenv");
+dotenv.config({ path: "./.env" });
 
 const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost:27017/RAWG");
+mongoose.connect(`${process.env.MONGODB_ACCES}`);
 
 const listpages = require("./Routes/listpages");
 const member = require("./Routes/member");
