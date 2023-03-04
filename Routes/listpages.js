@@ -56,9 +56,15 @@ router.get("/last30", async (req, res) => {
   const search = req.query.search || "";
   const page = req.query.page || 1;
 
+  const dateNow = new Date();
+  const thirtyDaysAgo = new Date(dateNow.getTime() - 30 * 24 * 60 * 60 * 1000); // 30 jours en millisecondes
+
+  const validDateNow = JSON.stringify(dateNow).slice(1, 11);
+  const validDateThirty = JSON.stringify(thirtyDaysAgo).slice(1, 11);
+
   try {
     const response = await axios.get(
-      `https://api.rawg.io/api/games?key=${process.env.RAWG_KEY}&dates=2022-09-08,2022-12-08&page_size=${number}&search=${search}&page=${page}`,
+      `https://api.rawg.io/api/games?key=${process.env.RAWG_KEY}&dates=${validDateThirty},${validDateNow}&page_size=${number}&search=${search}&page=${page}`,
       {
         headers: { "accept-encoding": "*" },
       }
@@ -76,9 +82,15 @@ router.get("/thisweek", async (req, res) => {
   const search = req.query.search || "";
   const page = req.query.page || 1;
 
+  const dateNow = new Date();
+  const sevenDaysAgo = new Date(dateNow.getTime() - 7 * 24 * 60 * 60 * 1000); // 30 jours en millisecondes
+
+  const validDateNow = JSON.stringify(dateNow).slice(1, 11);
+  const validDateSeven = JSON.stringify(sevenDaysAgo).slice(1, 11);
+
   try {
     const response = await axios.get(
-      `https://api.rawg.io/api/games?key=${process.env.RAWG_KEY}&dates=2022-12-05,2022-12-20&page_size=${number}&search=${search}&page=${page}`,
+      `https://api.rawg.io/api/games?key=${process.env.RAWG_KEY}&dates=${validDateSeven},${validDateNow}&page_size=${number}&search=${search}&page=${page}`,
       {
         headers: { "accept-encoding": "*" },
       }
@@ -96,9 +108,15 @@ router.get("/nextweek", async (req, res) => {
   const search = req.query.search || "";
   const page = req.query.page || 1;
 
+  const dateNow = new Date();
+  const sevenDaysAfter = new Date(dateNow.getTime() + 7 * 24 * 60 * 60 * 1000); // 30 jours en millisecondes
+
+  const validDateNow = JSON.stringify(dateNow).slice(1, 11);
+  const validDateSeven = JSON.stringify(sevenDaysAfter).slice(1, 11);
+
   try {
     const response = await axios.get(
-      `https://api.rawg.io/api/games?key=${process.env.RAWG_KEY}&dates=2022-12-15,2023-01-05&page_size=${number}&search=${search}&page=${page}`,
+      `https://api.rawg.io/api/games?key=${process.env.RAWG_KEY}&dates=${validDateNow},${validDateSeven}&page_size=${number}&search=${search}&page=${page}`,
       {
         headers: { "accept-encoding": "*" },
       }
